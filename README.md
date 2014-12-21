@@ -32,7 +32,7 @@ make
 
 ### Documentation
 
-You can find documentation about the usage of fannc in **USAGE.md**.
+You can find documentation about the usage of fannc in [**USAGE.md**](https://github.com/claudix/fannc/blob/master/USAGE.md).
 
 
 ### License

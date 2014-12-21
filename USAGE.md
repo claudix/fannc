@@ -55,7 +55,8 @@ The created network's structure will be dumped to STDOUT.
 
 **Usage:**
 ```
-fannc create_std [--min-random-weight=float] [--max-random-weight=float] [--init-weights] n n [n]... [--help]
+fannc create_std [--min-random-weight=float] [--max-random-weight=float] [--init-weights] n n [n]... 
+                 [--help]
 ```
 
 Argument                       | Description
@@ -74,7 +75,8 @@ The created network's structure will be dumped to STDOUT.
 
 **Usage:**
 ```
-fannc create_sparse [--min-random-weight=float] [--max-random-weight=float] [--init-weights] --rate=int n n [n]... [--help]
+fannc create_sparse [--min-random-weight=float] [--max-random-weight=float] [--init-weights] 
+                    --rate=int n n [n]... [--help]
 ```
 
 Argument                       | Description
@@ -94,7 +96,8 @@ The created network's structure will be dumped to STDOUT.
 
 **Usage:**
 ```
-fannc create_shortcut [--min-random-weight=float] [--max-random-weight=float] [--init-weights] n n [n]... [--help]
+fannc create_shortcut [--min-random-weight=float] [--max-random-weight=float] [--init-weights] n n [n]... 
+                      [--help]
 ```
 
 Argument                       | Description
@@ -207,7 +210,23 @@ Set ANN training parameters
 
 **Usage**
 ```
-fannc setup_training [--ann=filepath] [--neuron-activation-function=L:N:F]... [--hidden-activation-function=string] [--output-activation-function=string] [--neuron-activation-steepness=L:N:S]... [--hidden-activation-steepness=float] [--output-activation-steepness=float] [--training-algorithm=string] [--error-function=string] [--stop-function=string] [--bit-fail-limit=float] [--learning-rate=float] [--learning-momentum=float] [--quickprop-decay=float] [--quickprop-mu=float] [--rprop-increase-factor=float] [--rprop-decrease-factor=float] [--rprop-delta-min=float] [--rprop-delta-max=float] [--rprop-delta-zero=float] [--sarprop-weight-decay-shift=float] [--sarprop-step-error-threshold-factor=float] [--sarprop-step-error-shift=float] [--sarprop-temperature=float] [--cascade-output-change-fraction=float] [--cascade-output-stagnation-epochs=int] [--cascade-output-max-epochs=int] [--cascade-output-min-epochs=int] [--cascade-candidate-groups=int] [--cascade-candidate-training-limit=float] [--cascade-candidate-change-fraction=float] [--cascade-candidate-stagnation-epochs=int] [--cascade-candidate-max-epochs=int] [--cascade-candidate-min-epochs=int] [--cascade-weight-multiplier=float] [--cascade-activation-function=string]... [--cascade-activation-steepness=float]... [--help]
+fannc setup_training [--ann=filepath] [--neuron-activation-function=L:N:F]... 
+                     [--hidden-activation-function=string] 
+                     [--output-activation-function=string] [--neuron-activation-steepness=L:N:S]... 
+                     [--hidden-activation-steepness=float] [--output-activation-steepness=float] 
+                     [--training-algorithm=string] [--error-function=string] [--stop-function=string] 
+                     [--bit-fail-limit=float] [--learning-rate=float] [--learning-momentum=float] 
+                     [--quickprop-decay=float] [--quickprop-mu=float] [--rprop-increase-factor=float] 
+                     [--rprop-decrease-factor=float] [--rprop-delta-min=float] [--rprop-delta-max=float] 
+                     [--rprop-delta-zero=float] [--sarprop-weight-decay-shift=float] 
+                     [--sarprop-step-error-threshold-factor=float] [--sarprop-step-error-shift=float] 
+                     [--sarprop-temperature=float] [--cascade-output-change-fraction=float] 
+                     [--cascade-output-stagnation-epochs=int] [--cascade-output-max-epochs=int] 
+                     [--cascade-output-min-epochs=int] [--cascade-candidate-groups=int] 
+                     [--cascade-candidate-training-limit=float] [--cascade-candidate-change-fraction=float] 
+                     [--cascade-candidate-stagnation-epochs=int] [--cascade-candidate-max-epochs=int] 
+                     [--cascade-candidate-min-epochs=int] [--cascade-weight-multiplier=float] 
+                     [--cascade-activation-function=string]... [--cascade-activation-steepness=float]... [--help]
 ```
 
 Argument                                       | Description
@@ -258,7 +277,8 @@ Train an ANN
 
 **Usage**
 ```
-fannc train [--ann=filepath] --training-data=filepath --max-epochs=int [--report-period=int] --target-error=float [--report-file=filepath] [--help]
+fannc train [--ann=filepath] --training-data=filepath --max-epochs=int [--report-period=int] --target-error=float 
+            [--report-file=filepath] [--help]
 ```
 
 Argument                                       | Description
