@@ -19,6 +19,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <fann.h>
+#include "cmd.h"
 
 #define CMD_HEADER(pname,...)\
     const char *PROGNAME = pname; int NERRORS, EXITCODE = 0;\
