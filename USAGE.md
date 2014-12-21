@@ -1,10 +1,5 @@
 # fannc - Usage
-<style>
-td:first-child {
-   white-space:nowrap !important;
-   vertical-align: top !important;
-}
-</style>
+
 ## Overview
 
 Fannc is a command line utility for creating, training and testing **artificial neural networks** (ANN) using the [FANN library](http://leenissen.dk/fann/wp/). The general syntax of this command is:
