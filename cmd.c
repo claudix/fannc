@@ -386,21 +386,21 @@ static int cmd_get_params(int argc, char **argv)
     fann_get_bias_array(ann, biases);
     
     printf("{\n");
-    printf("  type: \"%s\",\n", FANN_NETTYPE_NAMES[fann_get_network_type(ann)]);
-    printf("  layers: {\n");
-    printf("    input:  {neurons: %u, bias: %u},\n", layers[0], biases[0]);
-    printf("    output: {neurons: %u},\n", layers[numLayers-1]);
-    printf("    hidden: [\n");
+    printf("  \"type\": \"%s\",\n", FANN_NETTYPE_NAMES[fann_get_network_type(ann)]);
+    printf("  \"layers\": {\n");
+    printf("    \"input\":  {\"neurons\": %u, \"bias\": %u},\n", layers[0], biases[0]);
+    printf("    \"output\": {\"neurons\": %u},\n", layers[numLayers-1]);
+    printf("    \"hidden\": [\n");
     for (i = 1; i < numLayers - 1; i++) {
-        printf("      {neurons: %u, bias: %u},\n", layers[i], biases[i]);
+        printf("      {\"neurons\": %u, \"bias\": %u},\n", layers[i], biases[i]);
     }  
     
     
     printf("    ]\n");
     printf("  },\n"); 
-    printf("  connectionRate: %f,\n", fann_get_connection_rate(ann));
+    printf("  \"connectionRate\": %f,\n", fann_get_connection_rate(ann));
     if (aWithConnections->count > 0) {
-        printf("  connections: [");
+        printf("  \"connections\": [");
         unsigned int totalConnections = fann_get_total_connections(ann);
         struct fann_connection *conn, *conns = (struct fann_connection *) xmalloc(sizeof(struct fann_connection) * totalConnections);
         fann_get_connection_array(ann, conns);
@@ -412,75 +412,75 @@ static int cmd_get_params(int argc, char **argv)
         printf("],\n");
     }
     
-    printf("  training: {\n");
-    printf("    algorithm: \"%s\",\n", FANN_TRAIN_NAMES[fann_get_training_algorithm(ann)]);
+    printf("  \"training\": {\n");
+    printf("    \"algorithm\": \"%s\",\n", FANN_TRAIN_NAMES[fann_get_training_algorithm(ann)]);
     if (aWithActivFuncs->count > 0) {
         int total_dumped = 0;
-        printf("    activationF: [\n");
+        printf("    \"activationF\": [\n");
         for (i = 1; i < numLayers; i++) { //start from first hidden layer
             for (j = 0; j < layers[i]; j++, total_dumped++) {
                 if (total_dumped > 0) putchar(',');
-                printf("{l: %u, n: %u, f: \"%s\", s: %f}", i, j, FANN_ACTIVATIONFUNC_NAMES[fann_get_activation_function(ann, i, j)], fann_get_activation_steepness(ann, i, j));
+                printf("{\"l\": %u, \"n\": %u, \"f\": \"%s\", \"s\": %f}", i, j, FANN_ACTIVATIONFUNC_NAMES[fann_get_activation_function(ann, i, j)], fann_get_activation_steepness(ann, i, j));
             }
         }
         printf("],\n");
     }
-    printf("    errorF: \"%s\",\n", FANN_ERRORFUNC_NAMES[fann_get_train_error_function(ann)]);
-    printf("    stopF: \"%s\",\n", FANN_STOPFUNC_NAMES[fann_get_train_stop_function(ann)]);
-    printf("    stopParams: {\n");
-    printf("      bitFailLimit: %f,\n", (double) fann_get_bit_fail_limit(ann));
+    printf("    \"errorF\": \"%s\",\n", FANN_ERRORFUNC_NAMES[fann_get_train_error_function(ann)]);
+    printf("    \"stopF\": \"%s\",\n", FANN_STOPFUNC_NAMES[fann_get_train_stop_function(ann)]);
+    printf("    \"stopParams\": {\n");
+    printf("      \"bitFailLimit\": %f,\n", (double) fann_get_bit_fail_limit(ann));
     printf("    },\n");
-    printf("    learningRate: %f,\n", (double) fann_get_learning_rate(ann));
-    printf("    learningMomentum: %f,\n", (double) fann_get_learning_momentum(ann));
-    printf("    quickPropParams: {\n");
-    printf("      decay: %f,\n", (double) fann_get_quickprop_decay(ann));
-    printf("      mu: %f\n", (double) fann_get_quickprop_mu(ann));
+    printf("    \"learningRate\": %f,\n", (double) fann_get_learning_rate(ann));
+    printf("    \"learningMomentum\": %f,\n", (double) fann_get_learning_momentum(ann));
+    printf("    \"quickPropParams\": {\n");
+    printf("      \"decay\": %f,\n", (double) fann_get_quickprop_decay(ann));
+    printf("      \"mu\": %f\n", (double) fann_get_quickprop_mu(ann));
     printf("    },\n");
-    printf("    rPropParams: {\n");
-    printf("      increaseFactor: %f,\n", (double) fann_get_rprop_increase_factor(ann));
-    printf("      decreaseFactor: %f,\n", (double) fann_get_rprop_decrease_factor(ann));
-    printf("      deltaMin: %f,\n", (double) fann_get_rprop_delta_min(ann));
-    printf("      deltaMax: %f,\n", (double) fann_get_rprop_delta_max(ann));
-    printf("      deltaZero: %f\n", (double) fann_get_rprop_delta_zero(ann));
+    printf("    \"rPropParams\": {\n");
+    printf("      \"increaseFactor\": %f,\n", (double) fann_get_rprop_increase_factor(ann));
+    printf("      \"decreaseFactor\": %f,\n", (double) fann_get_rprop_decrease_factor(ann));
+    printf("      \"deltaMin\": %f,\n", (double) fann_get_rprop_delta_min(ann));
+    printf("      \"deltaMax\": %f,\n", (double) fann_get_rprop_delta_max(ann));
+    printf("      \"deltaZero\": %f\n", (double) fann_get_rprop_delta_zero(ann));
     printf("    },\n");   
-    printf("    sarPropParams: {\n");
-    printf("      weightDecayShift: %f,\n", (double) fann_get_sarprop_weight_decay_shift(ann));
-    printf("      stepErrorThresholdFactor: %f,\n", (double) fann_get_sarprop_step_error_threshold_factor(ann));
-    printf("      stepErrorShift: %f,\n", (double) fann_get_sarprop_step_error_shift(ann));
-    printf("      temperature: %f\n", (double) fann_get_sarprop_temperature(ann));    
+    printf("    \"sarPropParams\": {\n");
+    printf("      \"weightDecayShift\": %f,\n", (double) fann_get_sarprop_weight_decay_shift(ann));
+    printf("      \"stepErrorThresholdFactor\": %f,\n", (double) fann_get_sarprop_step_error_threshold_factor(ann));
+    printf("      \"stepErrorShift\": %f,\n", (double) fann_get_sarprop_step_error_shift(ann));
+    printf("      \"temperature\": %f\n", (double) fann_get_sarprop_temperature(ann));    
     printf("    },\n");
-    printf("    cascadeParams: {\n");
-    printf("      output: {\n");
-    printf("        changeFraction: %f,\n", (double) fann_get_cascade_output_change_fraction(ann));    
-    printf("        stagnationEpochs: %u,\n", fann_get_cascade_output_stagnation_epochs(ann));    
-    printf("        maxEpochs: %u,\n", fann_get_cascade_max_out_epochs(ann));    
-    printf("        minEpochs: %u\n", fann_get_cascade_min_out_epochs(ann));    
+    printf("    \"cascadeParams\": {\n");
+    printf("      \"output\": {\n");
+    printf("        \"changeFraction\": %f,\n", (double) fann_get_cascade_output_change_fraction(ann));    
+    printf("        \"stagnationEpochs\": %u,\n", fann_get_cascade_output_stagnation_epochs(ann));    
+    printf("        \"maxEpochs\": %u,\n", fann_get_cascade_max_out_epochs(ann));    
+    printf("        \"minEpochs\": %u\n", fann_get_cascade_min_out_epochs(ann));    
     printf("      },\n");
-    printf("      candidates: {\n");
-    printf("        count: %u,\n", fann_get_cascade_num_candidates(ann));        
-    printf("        groups: %u,\n", fann_get_cascade_num_candidate_groups(ann));        
-    printf("        trainingLimit: %f,\n", (double) fann_get_cascade_candidate_limit(ann));        
-    printf("        changeFraction: %f,\n", (double) fann_get_cascade_candidate_change_fraction(ann));        
-    printf("        stagnationEpochs: %u,\n", fann_get_cascade_candidate_stagnation_epochs(ann));        
-    printf("        maxEpochs: %u,\n", fann_get_cascade_max_cand_epochs(ann));    
-    printf("        minEpochs: %u\n", fann_get_cascade_min_cand_epochs(ann));    
+    printf("      \"candidates\": {\n");
+    printf("        \"count\": %u,\n", fann_get_cascade_num_candidates(ann));        
+    printf("        \"groups\": %u,\n", fann_get_cascade_num_candidate_groups(ann));        
+    printf("        \"trainingLimit\": %f,\n", (double) fann_get_cascade_candidate_limit(ann));        
+    printf("        \"changeFraction\": %f,\n", (double) fann_get_cascade_candidate_change_fraction(ann));        
+    printf("        \"stagnationEpochs\": %u,\n", fann_get_cascade_candidate_stagnation_epochs(ann));        
+    printf("        \"maxEpochs\": %u,\n", fann_get_cascade_max_cand_epochs(ann));    
+    printf("        \"minEpochs\": %u\n", fann_get_cascade_min_cand_epochs(ann));    
     printf("      },\n");
-    printf("      weightMultiplier: %f,\n", (double) fann_get_cascade_weight_multiplier(ann));      
-    printf("      activationParams: {\n");    
+    printf("      \"weightMultiplier\": %f,\n", (double) fann_get_cascade_weight_multiplier(ann));      
+    printf("      \"activationParams\": {\n");    
     do {
         unsigned int nfunc = fann_get_cascade_activation_functions_count(ann);
         unsigned int nstep = fann_get_cascade_activation_steepnesses_count(ann);
         enum fann_activationfunc_enum *funcs = fann_get_cascade_activation_functions(ann);
         fann_type *stepnesses = fann_get_cascade_activation_steepnesses(ann);
         
-        printf("        functions:[");
+        printf("        \"functions\":[");
         for (i = 0; i < nfunc; i++) {
             if (i > 0) putchar(',');
             printf("\"%s\"", FANN_ACTIVATIONFUNC_NAMES[funcs[i]]);
         }
         printf("],\n");
         
-        printf("        steepnesses:[");
+        printf("        \"steepnesses\":[");
         for (i = 0; i < nstep; i++) {
             if (i > 0) putchar(',');
             printf("%f", (double) stepnesses[i]);
