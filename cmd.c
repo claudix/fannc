@@ -739,12 +739,13 @@ static int cmd_train(int argc, char **argv)
     
     struct arg_file *aFile = arg_file0(NULL, "ann", "filepath", "path to the ANN file. If unspecified, read from STDIN");
     struct arg_file *aTrainingFile = arg_file1(NULL, "training-data", "filepath", "path to the training data file.");
-    struct arg_int  *aMaxEpochs = arg_int1(NULL, "max-epochs", "int", "maximum number of epochs the training should continue");
-    struct arg_int  *aReportPeriod = arg_int0(NULL, "report-period", "int", "the number of epochs between printing a status report to stderr. If omitted, no reports should be printed.");
+    struct arg_lit  *aCascade = arg_lit0(NULL, "cascade", "do cascade training");
+    struct arg_int  *aMaxEpochs = arg_int1(NULL, "max-epochs", "int", "maximum number of epochs the training should continue. In cascade training, this parameter sets the maximum number of neurons.");
+    struct arg_int  *aReportPeriod = arg_int0(NULL, "report-period", "int", "the number of epochs between printing a status report to stderr. In cascade training, this parameter sets the number of neurons to create between reports. If omitted, no reports should be printed.");
     struct arg_dbl  *aDesiredError = arg_dbl1(NULL, "target-error", "float", "the desired target error");
     struct arg_file *aReport = arg_file0(NULL, "report-file", "filepath", "path to report file. If omitted, STDERR is used.");
     
-    CMD_PARSE(aFile, aTrainingFile, aMaxEpochs, aReportPeriod, aDesiredError, aReport);    
+    CMD_PARSE(aFile, aTrainingFile, aCascade, aMaxEpochs, aReportPeriod, aDesiredError, aReport);    
     
     struct fann *ann;
     if (aFile->count > 0) {
@@ -768,7 +769,13 @@ static int cmd_train(int argc, char **argv)
     fann_set_callback(ann, cmd_train_callback);
         
     //Train
-    fann_train_on_file(ann, aTrainingFile->filename[0], aMaxEpochs->ival[0], (aReportPeriod->count == 0) ? 0 : aReportPeriod->ival[0], (float) aDesiredError->dval[0]);     
+    if (aCascade->count > 0) {
+        unsigned int maxNeurons = aMaxEpochs->ival[0];
+        unsigned int neuronsBetweenReports = (aReportPeriod->count == 0) ? 0 : aReportPeriod->ival[0];
+        fann_cascadetrain_on_file(ann, aTrainingFile->filename[0], maxNeurons, neuronsBetweenReports, (float) aDesiredError->dval[0]);
+    } else {
+        fann_train_on_file(ann, aTrainingFile->filename[0], aMaxEpochs->ival[0], (aReportPeriod->count == 0) ? 0 : aReportPeriod->ival[0], (float) aDesiredError->dval[0]);     
+    }
     
     dump_ann(ann);
     

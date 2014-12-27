@@ -272,16 +272,17 @@ Train an ANN
 
 **Usage**
 ```
-fannc train [--ann=filepath] --training-data=filepath --max-epochs=int [--report-period=int] --target-error=float 
+fannc train [--ann=filepath] [--cascade] --training-data=filepath --max-epochs=int [--report-period=int] --target-error=float 
             [--report-file=filepath] [--help]
 ```
 
 Argument                                       | Description
 -----------------------------------------------|-------------
 `--ann=filepath`                               |`path to the ANN file. If unspecified, read from STDIN`
+`--cascade`                                    |`do cascade training`
 `--training-data=filepath`                     |`path to the training data file.`
-`--max-epochs=int`                             |`maximum number of epochs the training should continue`
-`--report-period=int`                          |`the number of epochs between printing a status report to stderr. If omitted, no reports should be printed.`
+`--max-epochs=int`                             |`maximum number of epochs the training should continue. In cascade training, this parameter sets the maximum number of neurons.`
+`--report-period=int`                          |`the number of epochs between printing a status report to stderr. In cascade training, this parameter sets the number of neurons to create between reports. If omitted, no reports should be printed.`
 `--target-error=float`                         |`the desired target error`
 `--report-file=filepath`                       |`path to report file. If omitted, STDERR is used.`
 `--help`                                       |`print this help and exit`
