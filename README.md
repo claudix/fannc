@@ -102,6 +102,12 @@ $ fannc run --ann=xor.net -i -1 -i 1
 0.985583
 ```
 
+### Acknowledgements
+(English)
+Fannc is extensively used by the processing engine of time and attendance software by [Imesd Electronica](https://imesd.es), so I appreciate they used this program and helped for improving it.
+
+(Spanish)
+Fannc se usa extensivamente en el motor de procesado del software de control horario de [Imesd Electronica](https://imesd.es), a la que agradezco que usaran este programa y me ayudaran a mejorarlo
 
 
 
